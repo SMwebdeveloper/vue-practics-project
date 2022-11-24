@@ -1,0 +1,1 @@
+export const logo = 'https://www.sammi.ac/_next/image?url=%2Flogo.png&w=128&q=75'
