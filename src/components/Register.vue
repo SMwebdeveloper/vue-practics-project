@@ -19,7 +19,12 @@ export default {
     methods:{
        submitHanlder(e) {
         e.preventDefault();
-        this.$store.dispatch('register')
+        const data = {
+          username:'sammdmnnhnbmifd',
+          email:'samsdn@mfdnnnmjkmmmfff.adx',
+          password:'ffdhfhkkf'
+        }
+        this.$store.dispatch('register', data).then(user => console.log("USER", user)).catch(err => console.log("ERROR", err))
        }
     }
 }; 
