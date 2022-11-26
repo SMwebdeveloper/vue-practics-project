@@ -1,3 +1,4 @@
+import { setItem } from "../halpers/persistanceStorage";
 import AuthService from "../service/auth";
 
 const state = {
@@ -27,6 +28,7 @@ const actions = {
         AuthService.register(user).then(response => {
           console.log("Response", response.data.user);
           context.commit('registerSuccess',response.data.user)
+          setItem("token", response.data.user.token )
           resolve(response.data.user)
         }).catch(error => {
           context.commit('registerFailure', error.response.data)
