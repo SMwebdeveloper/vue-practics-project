@@ -3,7 +3,7 @@
     <form>
       <h1 class="h3 mb-3 fw-normal text-center">Login</h1>
 
-      <ValidationError v-if="validationErrors" :validationErrors="validationErrors"/>
+      <ValidationError v-if="validationErrors" :validationErrors="validationErrors" />
       <Input :label="'Email address'" :type="'email'" v-model="email"/>
       <Input :label="'Password'" :type="'password'" v-model="password"/>
       <Button type="submit" @click="submitHanlder" :disabled="isLoading">Login</Button>
