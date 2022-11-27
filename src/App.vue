@@ -2,10 +2,10 @@
   <div>
     <div class="container">
       <Navbar />
+      <RouterView/>
     </div>
   </div>
 
-  <RouterView/>
 </template>
 <script>
 import { Navbar } from "@/components/index.js";
@@ -14,6 +14,9 @@ export default {
   components: {
     Navbar,
   },
+  mounted() {
+    this.$store.dispatch('getUser')
+  }
 };
 </script>
 <style></style>

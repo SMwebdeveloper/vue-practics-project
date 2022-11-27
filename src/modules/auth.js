@@ -9,16 +9,16 @@ const state = {
   isLoggedIn: null,
 };
 const getters = {
-  [gettersTypes.currentUser]: state => {
-    return state.user
+  [gettersTypes.currentUser]: (state) => {
+    return state.user;
   },
-  [gettersTypes.isLoggedIn]: state => {
-    return Boolean(state.isLoggedIn)
+  [gettersTypes.isLoggedIn]: (state) => {
+    return Boolean(state.isLoggedIn);
   },
-  [gettersTypes.isAnonymous]: state => {
-    return state.isLoggedIn === false
+  [gettersTypes.isAnonymous]: (state) => {
+    return state.isLoggedIn === false;
   },
-}
+};
 const mutations = {
   registerStart(state) {
     state.isLoading = true;
@@ -53,6 +53,20 @@ const mutations = {
     state.errors = payload.errors;
     state.isLoggedIn = false;
   },
+  // current mutation
+  currentUserStart(state) {
+    state.isLoading = true;
+  },
+  currentUserSuccess(state, payload) {
+    state.isLoading = false;
+    state.user = payload;
+    state.isLoggedIn = true;
+  },
+  currentUserFailure(state) {
+    state.isLoading = false;
+    state.user = null;
+    state.isLoggedIn = false;
+  },
 };
 const actions = {
   register(context, user) {
@@ -84,6 +98,18 @@ const actions = {
           context.commit("loginFailure", error.response.data);
           reject(error.response.data);
         });
+    });
+  },
+  // get user
+  getUser(context) {
+    return new Promise((resolve) => {
+      context.commit("currentUserStart");
+      AuthService.getUser()
+        .then((response) => {
+          context.commit("currentUserSuccess", response.data.user);
+          resolve(response.data.user);
+        })
+        .catch(() => context.commit("currentUserFailure"));
     });
   },
 };
