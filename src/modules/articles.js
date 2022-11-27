@@ -12,7 +12,7 @@ const mutations = {
         state.isLoading = true;
         state.data = null;
         state.error = null;
-        articleDetail = null;
+        state.articleDetail = null;
     },
     getArticlesSuccess(state, payload) {
         state.isLoading = false;

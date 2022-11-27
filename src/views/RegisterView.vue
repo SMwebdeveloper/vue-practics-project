@@ -1,5 +1,5 @@
 <template >
-    <div>
+    <div class="text-center">
       <Register/>
     </div>
 </template>
@@ -8,7 +8,8 @@ import {Register} from '@/components'
 export default {
     components: {
         Register,
-    }
+    },
+    
 }
 </script>
 <style>
