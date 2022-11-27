@@ -1,4 +1,4 @@
-import { setItem } from "../halpers/persistanceStorage";
+import { removeItem, setItem } from "../halpers/persistanceStorage";
 import AuthService from "../service/auth";
 import { gettersTypes } from "./types";
 
@@ -67,6 +67,11 @@ const mutations = {
     state.user = null;
     state.isLoggedIn = false;
   },
+  // log out
+  logout(state) {
+    state.user = null;
+    state.isLoggedIn = null;
+  }
 };
 const actions = {
   register(context, user) {
@@ -112,6 +117,12 @@ const actions = {
         .catch(() => context.commit("currentUserFailure"));
     });
   },
+  // log out action
+
+  logout(context) {
+    context.commit('logout')
+    removeItem('token')
+  }
 };
 export default {
   state,
