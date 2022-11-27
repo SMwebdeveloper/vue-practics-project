@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h2>Home</h2>
-    {{data}}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <ArticleCardVue v-for="article in data" :article="article" :key="article.id"/>
+    </div>
   </div>
 </template>
 <script>
+import ArticleCardVue from "../components/ArticleCard.vue";
 import { mapState } from "vuex";
 export default {
+    components: {
+      ArticleCardVue
+    },
   computed: {
     ...mapState({
       data: (state) => state.articles.data,
