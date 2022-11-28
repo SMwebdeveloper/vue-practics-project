@@ -1,5 +1,5 @@
 <template>
-    <Loader v-if="isLoading" class="text-center"/>
+    <Loader v-if="isLoading" class="offset-md-6"/>
   <ArticleDetail v-else/>
 
 </template>
