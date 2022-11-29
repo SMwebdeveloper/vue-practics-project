@@ -7,7 +7,7 @@
         <Input type="text" label="Title" v-model="title"/>
         <TextArea type="text" label="Description" v-model="description"/>
         <TextArea type="text" label="Body" v-model="body"/>
-        <Button @click="createArticleHandler" :adisabled="isLoading">
+        <Button @click="createArticleHandler" :disabled="isLoading">
             Create article
         </Button>
       </form>
