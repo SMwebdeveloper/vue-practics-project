@@ -4,38 +4,48 @@
 			<Input type="text" label="Title" v-model="title" />
 			<TextArea type="text" label="Description" v-model="description" />
 			<TextArea type="text" label="Body" v-model="body" />
-			<Button @click="editArticle">Edit article</Button>
+			<Button @click="editArticle" :disabled="islLoading">{{clickText}}</Button>
 		</form>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    body: {
-      type: String,
-      required: true,
-    },
-    editArticleHandler:{
+   initialValue:{
+    type:Object,
+    required:true,
+   },
+    onSubmitHandler:{
       type:Function,
+      required:true,
+    },
+    clickText:{
+      type:String,
       required:true,
     }
     
   },
   data() {
-		return {
-			title: this.title,
-			description: this.description,
-			body: this.body,
+    return {
+      title: this.initialValue.title,
+			description: this.initialValue.description,
+			body: this.initialValue.body,
+      isEdit: false,
 		}
-},
+  },
+  computed:{
+    ...mapState({
+      islLoading: state => state.control.islLoading
+    }),
+    edit() {
+     if (this.$route.params.slug) {
+      this.isEdit = true
+     } else {
+      this.isEdit = false
+     }
+    }
+  },
 methods:{
   editArticle() {
     const article = {
@@ -44,7 +54,7 @@ methods:{
       description: this.description,
       tagList: [],
     }
-    this.editArticleHandler(article)
+    this.onSubmitHandler(article)
   }
 }
 }

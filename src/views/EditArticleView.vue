@@ -1,11 +1,11 @@
 <template>
   <h2 class="text-center display-2">Edit article</h2>
+  <Loader v-if="islLoading" class="offset=md-6"/>
   <ArticleForm
-    v-if="article"
-    :title="article.title"
-    :description="article.description"
-    :body="article.body"
-    :editArticleHandler="editArticleHandler"
+    v-else-if="!islLoading && article"
+    :initialValue="initialValue"
+    :onSubmitHandler="editArticleHandler"
+    :clickText="'Edit article'"
   />
 </template>
 <script>
@@ -17,13 +17,25 @@ export default {
   },
   methods: {
     editArticleHandler(article) {
-      console.log(article);
+      this.$store.dispatch('updateHandler', {article:article, slug: this.$route.params.slug})
+      .then(() => this.$router.push('/'))
     },
   },
   computed: {
 		...mapState({
 			article: state => state.articles.articleDetail,
+      islLoading: state => state.articles.islLoading
 		}),
+    initialValue() {
+      if (!this.article) {
+        return null
+      }
+      return {
+        title:this.article.title,
+        description:this.article.description,
+        body:this.article.body,
+      }
+    }
 	},
 	mounted() {
 		this.$store.dispatch('articleDetail', this.$route.params.slug)
